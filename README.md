@@ -16,36 +16,38 @@ A reference to `val` can either be a variable name or it can be a hex value.
 * Bold text 13pt and below
 
 
-## Print/Set Commands
+## Property Commands
+
+### Print
 * `p bg` - print current background color
-* `s bg #XXXXXX` - set current background color
 * `p fg` - print the current foreground color
-* `s fg #XXXXXX` - set the current foreground color
 * `p text` - print the current text color
+
+### Set
+* `s bg #XXXXXX` - set current background color
+* `s fg #XXXXXX` - set the current foreground color
 * `s text #XXXXXX` - set the current text color
 
+### Swap
+* `swap bg fg` and `swap fg bg` - swap the background and foreground colors.
+* `swap bg text` and `swap text bg` - swap the background and text colors.
+* `swap fg text` and `swap text fg` - swap the foreground and text colors.
+
 ## Contrast Ratio Commands
-### Compare any two values
-* `c val val` - compares two values
+References to "any" refer to bg, fg, text, or any variable/value (either in your palette or a hex value).
+* `c any any` - gets the contrast ratio between these two colors.
+* `c any -c color` 
+* `c any -l level` - gets the contrast ratio between this color and every color at the specified level in your palette.
+* `c any` - gets the contrast ratio between this color and every color in your palette. 
 
-### Compare against background
-* `c bg val` - gets the contrast ratio between the current background and another color
-* `c bg` - gets the contrast ratio between every color in your palette and the current background
-* `f bg var_name` - finds the values of var_name that gives you 3.0:1 and 4.5:1 contrast ratios with the current background color
-* `f bg` - finds the values for each color in your palette that give you 3.0:1 and 4.5:1 contrast ratios with the current background color
+## Find Commands
+* `f any color` - finds the levels of the specified color that give you 3.0:1 and 4.5:1 contrast ratios with the color referenced by "any".
+* `f any` - finds the levels of all colors in your palette that give you 3.0:1 and 4.5:1 contrast ratios with the color referenced by "any".
 
+## Opacity Commands
 
-### Compare against foreground
-* `c fg val` - gets the contrast ratio between the current foreground and another color
-* `c fg` - gets the contrast ratio between every color in your palette and the current background
-* `f fg var_name` - finds the values of var_name that gives you 3.0:1 and 4.5:1 contrast ratios with the current foreground color
-* `f fg` - finds the values for each color in your palette that give you 3.0:1 and 4.5:1 contrast ratios with the current foreground color
+# Old
 
-### Compare against text
-* `c text val` - gets the contrast ratio between the current text and another color
-* `c text` - gets the contrast ratio between every color in your palette and the current background
-* `f text var_name` - finds the values of var_name that gives you 3.0:1 and 4.5:1 contrast ratios with the current text color
-* `f text` - finds the values for each color in your palette that give you 3.0:1 and 4.5:1 contrast ratios with the current text color
 
 ### Multiple variable calculations
 * `o bg text val` - calculates the opacity of "val" to create the proper 3.0:1 and 4.5:1 contrast ratios with the text. This assumes "val" is the layer above the background, and text is the layer above "val"
