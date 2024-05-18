@@ -56,24 +56,26 @@ prop -> the property we are setting (bg/fg/text).
 
 
 def print_prop_handler(prop):
-    # bg
-    if prop == "bg" and bg[0] == "":
-        print(bg[1])
-    elif prop == "bg":
-        print(bg[0] + ", " + bg[1])
-    # fg
-    elif prop == "fg" and fg[0] == "":
-        print(fg[1])
-    elif prop == "fg":
-        print(fg[0] + ", " + fg[1])
-    # text
-    elif prop == "text" and text[0] == "":
-        print(text[1])
-    elif prop == "text":
-        print(text[0] + ", " + text[1])
-    else:
-        return False
-    return True
+		# bg
+		if prop == "bg" and bg[0] == "":
+				print(bg[1])
+		elif prop == "bg":
+				print(bg[0] + ", " + bg[1])
+		# fg
+		elif prop == "fg" and fg[0] == "":
+				print(fg[1])
+		elif prop == "fg":
+				print(fg[0] + ", " + fg[1])
+		# text
+		elif prop == "text" and text[0] == "":
+				print(text[1])
+		elif prop == "text":
+				print(text[0] + ", " + text[1])
+		elif get_color(prop) != "":
+				print(get_color(prop))
+		else:
+				return False
+		return True
 
 
 """

@@ -1,6 +1,6 @@
 from properties import bg, fg, text
-from color import is_valid_hex_color, hex_to_rgb, rgb_to_hex
-from palette import get_color
+from color import hex_to_rgb
+from palette import palette, get_color
 from termcolor import colored
 
 
@@ -36,11 +36,11 @@ def get_contrast_ratio(hex1, hex2):
 
 def print_contrast_ratio(contrast):
     if contrast < 3.0:
-        print(colored(contrast, "red"))
+        print(colored(f"{contrast:.2f}".ljust(5), "red"), end="")
     elif contrast < 4.5:
-        print(colored(contrast, "yellow"))
+        print(colored(f"{contrast:.2f}".ljust(5), "yellow"), end="")
     else:
-        print(colored(contrast, "green"))
+        print(colored(f"{contrast:.2f}".ljust(5), "green"), end="")
 
 
 def simple_contrast_handler(val1, val2):
@@ -50,7 +50,46 @@ def simple_contrast_handler(val1, val2):
     if hex1 != "" and hex2 != "":
         contrast = get_contrast_ratio(hex1, hex2)
         print_contrast_ratio(contrast)
+        print()
     else:
         print("Could not get contrast ratio due to invalid colors.")
 
     return True
+
+
+def color_contrast_handler(val, color):
+    hex = get_color(val)
+    if hex == "":
+        print("Could not get contrast ratio due to invalid colors.")
+        return
+
+    if color in palette:
+        print(color.ljust(12), end="")
+        levels = palette[color]
+        for level in levels:
+            contrast = get_contrast_ratio(hex, level[1])
+            print("(" + level[0] + ") ", end="")
+            print_contrast_ratio(contrast)
+            print("   ", end="")
+        print()
+
+    return True
+
+
+# TODO:
+def level_contrast_handler(val, level):
+    print()
+
+
+# TODO:
+def all_contrast_handler(val):
+		hex = get_color(val)
+		if hex == "":
+				print("Could not get contrast ratio due to invalid colors.")
+				return
+
+		for color in palette.keys():
+				color_contrast_handler(hex, color)
+				print()
+        
+		return True

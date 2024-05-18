@@ -36,8 +36,7 @@ A reference to `val` can either be a variable name or it can be a hex value.
 ## Contrast Ratio Commands
 References to "any" refer to bg, fg, text, or any variable/value (either in your palette or a hex value).
 * `c any any` - gets the contrast ratio between these two colors.
-* `c any -c color` 
-* `c any -l level` - gets the contrast ratio between this color and every color at the specified level in your palette.
+* `c any -c color` - gets the contrast ratio between the color specified by "any" and every level of "color". 
 * `c any` - gets the contrast ratio between this color and every color in your palette. 
 
 ## Find Commands
