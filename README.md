@@ -40,4 +40,5 @@ References to "any" refer to bg, fg, text, or any variable/value (either in your
 * `c any` - gets the contrast ratio between this color and every color in your palette. 
 
 ## Opacity Commands
+* `o any any opacity any` - if each value is stacked on top of each other from left to right, and the opacity is applied to the middle "any", then it calculates the contrast ratio with the last "any". 
 * `o any any any` - if each value is stacked on top of each other from left to right, then the required opacity for the middle "any" is calculated to meet 3.0:1 and 4.5:1 contrast ratios with the last "any".

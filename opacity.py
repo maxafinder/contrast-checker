@@ -1,6 +1,7 @@
 from color import is_valid_hex_color, hex_to_rgb, rgb_to_hex
 from palette import get_color
-from contrast import simple_contrast_handler, get_contrast_ratio, print_contrast_ratio
+from contrast import simple_contrast_handler, get_contrast_ratio
+from termcolor import colored
 
 """
 Blend two hex colors with the specified opacity level.
@@ -45,22 +46,91 @@ def get_blended_color_contrast(hex_bottom, hex_middle, opacity, hex_top):
 Calculates the color contrast with 
 """
 def blended_color_contrast_handler(bottom, middle, opacity, top):
-		hex_bottom = get_color(bottom)
-		hex_middle = get_color(middle)
-		hex_top = get_color(top)
-                
-		if not (is_valid_hex_color(hex_bottom) and is_valid_hex_color(hex_middle) and is_valid_hex_color(hex_top)):
-				print("Couldn't find proper opacity due to invalid colors.")
-		else:
-				blended_hex = blend_hex_colors(hex_bottom, hex_middle, opacity)
-				if is_valid_hex_color(blended_hex):
-						simple_contrast_handler(blended_hex, hex_top)
+    hex_bottom = get_color(bottom)
+    hex_middle = get_color(middle)
+    hex_top = get_color(top)
 
-		return True
+    if not (
+        is_valid_hex_color(hex_bottom)
+        and is_valid_hex_color(hex_middle)
+        and is_valid_hex_color(hex_top)
+    ):
+        print("Couldn't find contrast due to invalid colors.")
+    else:
+        blended_hex = blend_hex_colors(hex_bottom, hex_middle, opacity)
+        if is_valid_hex_color(blended_hex):
+            simple_contrast_handler(blended_hex, hex_top)
+
+    return True
 
 """
 Calculates the opacity of middle to meet the proper contrast ratio
 with the top layer.
 """
 def find_opacity_handler(bottom, middle, top):
-		print()
+		hex_bottom = get_color(bottom)
+		hex_middle = get_color(middle)
+		hex_top = get_color(top)
+
+		if not (
+        is_valid_hex_color(hex_bottom)
+        and is_valid_hex_color(hex_middle)
+        and is_valid_hex_color(hex_top)
+    ):
+				print("Couldn't find proper opacity due to invalid colors.")
+		else:
+				medium_contrast = None
+				high_contrast = None
+
+				contrast_with_bottom = get_contrast_ratio(hex_bottom, hex_top)
+				contrast_with_middle = get_contrast_ratio(hex_middle, hex_top)
+
+				# adding more of the middle layer makes the contrast worse
+				if contrast_with_bottom > contrast_with_middle:
+						opacity = 0.0
+
+						while (medium_contrast == None or high_contrast == None) and opacity <= 1.0:
+								contrast = get_blended_color_contrast(
+                    hex_bottom, hex_middle, opacity, hex_top
+								)
+								if high_contrast == None and contrast < 4.5:
+										high_contrast = opacity - 0.01
+								if medium_contrast == None and contrast < 3.0:
+										medium_contrast = opacity - 0.01
+								opacity += 0.01
+
+						if high_contrast == None:
+								high_contrast = 1.0
+						if medium_contrast == None:
+								medium_contrast = 1.0
+				# adding more of the middle layer makes the contrast better
+				elif contrast_with_bottom < contrast_with_middle:
+						opacity = 1.0
+
+						while (medium_contrast == None or high_contrast == None) and opacity >= 0.0:
+								contrast = get_blended_color_contrast(
+                    hex_bottom, hex_middle, opacity, hex_top
+								)
+								if high_contrast == None and contrast < 4.5:
+										high_contrast = opacity + 0.01
+								if medium_contrast == None and contrast < 3.0:
+										medium_contrast = opacity + 0.01
+								opacity -= 0.01
+
+						if high_contrast == None:
+								high_contrast = 1.0
+						if medium_contrast == None:
+								medium_contrast = 1.0
+
+				# print the results
+				if high_contrast < 0 or high_contrast > 1.0:
+						print("Couldn't find any 4.5 contrast")
+				else:
+						print(colored(f"{high_contrast:.2f}", "green"))
+
+				if medium_contrast < 0 or medium_contrast > 1.0:
+						print("Couldn't find any 3.0 contrast")
+				else:
+						print(colored(f"{medium_contrast:.2f}", "yellow"))
+
+		return True

@@ -52,7 +52,7 @@ def simple_contrast_handler(val1, val2):
         print_contrast_ratio(contrast)
         print()
     else:
-        print("Could not get contrast ratio due to invalid colors.")
+        print("Couldn't get contrast ratio due to invalid colors.")
 
     return True
 
