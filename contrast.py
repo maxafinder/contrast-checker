@@ -76,12 +76,6 @@ def color_contrast_handler(val, color):
     return True
 
 
-# TODO:
-def level_contrast_handler(val, level):
-    print()
-
-
-# TODO:
 def all_contrast_handler(val):
 		hex = get_color(val)
 		if hex == "":
