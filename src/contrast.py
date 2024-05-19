@@ -1,6 +1,6 @@
-from properties import bg, fg, text
-from color import hex_to_rgb
-from palette import palette, get_color
+from src.properties import bg, fg, text
+from src.color import hex_to_rgb
+from src.palette import palette, get_color
 from termcolor import colored
 
 

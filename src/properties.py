@@ -1,5 +1,5 @@
-from palette import palette, get_color
-from color import is_valid_hex_color
+from src.palette import palette, get_color
+from src.color import is_valid_hex_color
 
 
 bg, fg, text = [], [], []  # [name, hex]

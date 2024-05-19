@@ -1,6 +1,6 @@
-from palette import palette, parse_color_palette
-from properties import set_defaults
-from command import command_handler
+from src.palette import palette, parse_color_palette
+from src.properties import set_defaults
+from src.command import command_handler
 
 def main():
     palette = parse_color_palette()

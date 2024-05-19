@@ -1,4 +1,4 @@
-from color import is_valid_hex_color
+from src.color import is_valid_hex_color
 
 palette = {}
 
@@ -36,7 +36,7 @@ For example, "gray-900" -> "#18181B"
 
 
 def get_color(name):
-    from properties import hex_from_prop
+    from src.properties import hex_from_prop
 
     if is_valid_hex_color(name):
         return name
