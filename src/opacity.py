@@ -37,6 +37,20 @@ def blend_hex_colors(hex1, hex2, opacity_str):
     return rgb_to_hex(blended_rgb)
 
 
+def blend_colors_handler(bottom, top, opacity):
+    hex_bottom = get_color(bottom)
+    hex_top = get_color(top)
+
+    if not (is_valid_hex_color(hex_bottom) and is_valid_hex_color(hex_top)):
+        print("Couldn't blend due to invalid colors.")
+    else:
+        hex_result = blend_hex_colors(hex_bottom, hex_top, opacity)
+        if is_valid_hex_color(hex_result):
+            print(hex_result)
+
+    return True
+
+
 def get_blended_color_contrast(hex_bottom, hex_middle, opacity, hex_top):
     blended_hex = blend_hex_colors(hex_bottom, hex_middle, opacity)
     if is_valid_hex_color(blended_hex):

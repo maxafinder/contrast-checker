@@ -1,7 +1,7 @@
 import os
 from src.properties import print_prop_handler, set_prop_handler, swap_props_handler
 from src.contrast import simple_contrast_handler, color_contrast_handler, all_contrast_handler
-from src.opacity import blended_color_contrast_handler, find_opacity_handler, find_opacity_at_level_handler, find_opacity_between_levels_handler
+from src.opacity import blended_color_contrast_handler, find_opacity_handler, find_opacity_at_level_handler, find_opacity_between_levels_handler, blend_colors_handler
 
 
 def invalid_command(command):
@@ -44,6 +44,8 @@ def command_handler(command):
             res = find_opacity_handler(tokens[1], tokens[2], tokens[3])
         elif len(tokens) == 6:
             res = find_opacity_between_levels_handler(tokens[1], tokens[3], tokens[5])
+    elif tokens[0] == "b" and len(tokens) == 4:
+        res = blend_colors_handler(tokens[1], tokens[2], tokens[3])
 
     if not res:
         invalid_command(command)
